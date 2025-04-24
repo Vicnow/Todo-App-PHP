@@ -75,11 +75,18 @@ $tasks = $stmt->fetchAll();
         </form>
 
         <!-- Si el array $tasks está vacío -->
-        <?php if (count($tasks) === 0): ?>
+        <div
+            id="noTasksMessage"
+            class="w-full flex flex-col justify-center items-center p-4 <?= $hasTasks ? 'hidden' : '' ?>">
+            <h2 class="text-lg font-bold">No hay tareas registradas</h2>
+            <img class="w-1/2 my-4" src="assets/img/no_task.png" alt="No hay tareas">
             <p class="p-4 text-center text-gray-500">
-                No hay tareas registradas. ¡Agrega la primera arriba!
+                ¡Agrega la primera arriba!
             </p>
-        <?php else: ?>
+        </div>
+        <div
+            id="tasksContainer"
+            class="max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden <?= $hasTasks ? '' : 'hidden' ?>">
             <!-- Tabla de tareas hay tareas -->
             <table id="tasksTable" class="table-auto min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
@@ -117,8 +124,7 @@ $tasks = $stmt->fetchAll();
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        <?php endif; ?>
-    </div>
+        </div>
 </body>
 
 </html>

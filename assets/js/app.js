@@ -46,6 +46,13 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status === 'success') {
                     var t = response.task;
+                    
+                    // Si es la PRIMERA tarea, oculta el mensaje y muestra la tabla
+                    if ($('#noTasksMessage').is(':visible')) {
+                        $('#noTasksMessage').hide();
+                        $('#tasksContainer').removeClass('hidden');
+                    }
+
                     var row = '<tr data-id="' + t.id + '">' +
                         '<td class="px-6 py-4">' +
                         '<div class="flex flex-col">' +
@@ -71,5 +78,13 @@ $(document).ready(function () {
                 alert('Error en la petición AJAX.');
             }
         });
+    });
+
+    // Manejador de eliminación
+    $('#tasksTable').on('click', '.deleteBtn', function () {
+        var taskId = $(this).data('id');
+        if (confirm('¿Estás seguro de que deseas eliminar esta tarea?')) {
+            window.location.href = 'delete.php?id=' + taskId;
+        }
     });
 });
