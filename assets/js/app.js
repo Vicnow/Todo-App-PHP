@@ -69,7 +69,7 @@ $(document).ready(function () {
                         '<td class="px-6 py-4 whitespace-nowrap capitalize">' +
                         '<div class="flex flex-row items-center">' +
                         '<span class="text-sm font-medium pr-2">' + t.status + '</span>';
-                    if (t.status === 'completed') {
+                    if (t.status === 'completada') {
                         desktopRow += $iconComplete
                     } else {
                         desktopRow += $iconIncomplete
@@ -98,7 +98,7 @@ $(document).ready(function () {
                         '<span class="text-sm text-gray-700 capitalize">' + t.task_type + '</span>' +
                         '<div class="flex flex-row">' +
                         '<span class="text-sm font-medium pr-2 capitalize">- ' + (t.status) + '</span>';
-                    if (t.status === 'completed') {
+                    if (t.status === 'completada') {
                         mobileCard += $iconComplete
                     } else {
                         mobileCard += $iconIncomplete

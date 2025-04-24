@@ -13,7 +13,7 @@ try {
         $name      = trim($_POST['task_name']);
         $dueDate   = $_POST['due_date'];
         $typeId    = (int) $_POST['task_type_id'];
-        $status    = $_POST['status'] === 'completed' ? 'completed' : 'pending';
+        $status    = $_POST['status'] === 'completada' ? 'completada' : 'pendiente';
 
         // Validar datos del formulario
         if ($name === '' || strlen($name) > 50) {
@@ -150,8 +150,8 @@ try {
                     <input
                         type="radio"
                         name="status"
-                        value="pending"
-                        <?= $task['status'] === 'pending' ? 'checked' : '' ?>
+                        value="pendiente"
+                        <?= $task['status'] === 'pendiente' ? 'checked' : '' ?>
                         class="form-radio">
                     <span class="ml-2">Pendiente</span>
                 </label>
@@ -159,8 +159,8 @@ try {
                     <input
                         type="radio"
                         name="status"
-                        value="completed"
-                        <?= $task['status'] === 'completed' ? 'checked' : '' ?>
+                        value="completada"
+                        <?= $task['status'] === 'completada' ? 'checked' : '' ?>
                         class="form-radio">
                     <span class="ml-2">Completada</span>
                 </label>
