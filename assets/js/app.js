@@ -5,6 +5,15 @@ $(document).ready(function () {
     var $typeSelect = $('#task_type');
     var $addButton = $('#addTaskBtn');
 
+    // Iconos
+    var $iconComplete = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
+        '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' +
+        '</svg>';
+
+    var $iconIncomplete = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
+        '<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />' +
+        '</svg>';
+
     // Función que comprueba si el formulario es válido
     function updateAddButton() {
         // Nombre no vacío y menor de 50 caracteres
@@ -47,41 +56,67 @@ $(document).ready(function () {
                 if (response.status === 'success') {
                     var t = response.task;
 
-                    // Si es la PRIMERA tarea, oculta el mensaje y muestra la tabla
-                    if ($('#noTasksMessage').is(':visible')) {
-                        $('#noTasksMessage').hide();
-                        $('#tasksContainer').removeClass('hidden');
-                    }
-
-                    var row = '<tr data-id="' + t.id + '">' +
+                    // Fila de la tabla desktop
+                    var desktopRow =
+                        '<tr data-id="' + t.id + '">' +
                         '<td class="px-6 py-4">' +
                         '<div class="flex flex-col">' +
                         '<span class="text-sm font-medium text-gray-900 break-words max-w-xs">' + t.task_name + '</span>' +
-                        '<span class="text-sm text-gray-500">' + t.due_date + '</span>' +
+                        '<span class="text-sm text-gray-500">' + (t.due_date || '-') + '</span>' +
                         '</div>' +
                         '</td>' +
-                        '<td  class="px-6 py-4 whitespace-nowrap capitalize">' + t.task_type + '</td>' +
+                        '<td class="px-6 py-4 whitespace-nowrap capitalize">' + t.task_type + '</td>' +
                         '<td class="px-6 py-4 whitespace-nowrap capitalize">' +
-                        '<div class="flex flex-row">' +
+                        '<div class="flex flex-row items-center">' +
                         '<span class="text-sm font-medium pr-2">' + t.status + '</span>';
                     if (t.status === 'completed') {
-                        row += '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
-                            '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' +
-                            '</svg>';
+                        desktopRow += $iconComplete
                     } else {
-                        row += '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
-                            '<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />' +
-                            '</svg>';
+                        desktopRow += $iconIncomplete
                     }
-                    row += '</div>' +
-                        '<td  class="px-6 py-4 whitespace-nowrap space-x-2">' +
-                        '<a href="edit.php?id=' + t.id + '" class="text-indigo-600 hover:text-indigo-900">Editar</a> ' +
-                        '<button  class="deleteBtn text-red-600 hover:text-red-900" data-id="' + t.id + '">Eliminar</button>' +
+                    desktopRow +=
+                        '</div>' +
+                        '</td>' +
+                        '<td class="px-6 py-4 whitespace-nowrap space-x-2">' +
+                        '<a href="edit.php?id=' + t.id + '" class="text-indigo-600 hover:text-indigo-900 text-sm">Editar</a>' +
+                        '<button class="deleteBtn text-red-600 hover:text-red-900 text-sm" data-id="' + t.id + '">Eliminar</button>' +
                         '</td>' +
                         '</tr>';
-                    $('#tasksTable tbody').prepend(row);
+
+                    $('#tasksTable tbody').prepend(desktopRow);
+
+                    // Tarjeta apilada móvil
+                    var mobileCard =
+                        '<div class="bg-white p-4 rounded-lg shadow" data-id="' + t.id + '">' +
+                        '<div>' +
+                        '<span class="block text-base font-medium text-gray-900">' + t.task_name + '</span>' +
+                        '</div>' +
+                        '<div class="mt-1">' +
+                        '<span class="text-sm text-gray-500">' + (t.due_date || '-') + '</span>' +
+                        '</div>' +
+                        '<div class="mt-2 flex items-center space-x-1">' +
+                        '<span class="text-sm text-gray-700 capitalize">' + t.task_type + '</span>' +
+                        '<div class="flex flex-row">' +
+                        '<span class="text-sm font-medium pr-2 capitalize">- ' + (t.status) + '</span>';
+                    if (t.status === 'completed') {
+                        mobileCard += $iconComplete
+                    } else {
+                        mobileCard += $iconIncomplete
+                    }
+                    mobileCard +=
+                        '</div>' +
+                        '</div>' +
+                        '<div class="mt-3 flex space-x-4">' +
+                        '<a href="edit.php?id=' + t.id + '" class="text-indigo-600 hover:text-indigo-900 text-sm">Editar</a>' +
+                        '<button class="deleteBtn text-red-600 hover:text-red-900 text-sm" data-id="' + t.id + '">Eliminar</button>' +
+                        '</div>' +
+                        '</div>';
+
+                    $('#tasksMobileList').prepend(mobileCard);
+
+                    // Limpiar formulario y resetear botón
                     $('#addTaskForm')[0].reset();
-                    updateAddButton(); // volver a deshabilitar hasta nueva validación
+                    updateAddButton();
                 } else {
                     alert('Error al agregar tarea: ' + response.message);
                 }
@@ -92,6 +127,7 @@ $(document).ready(function () {
         });
     });
 
+    // TODO: No mostrar confirmación de eliminación si se hace desde una tarjeta móvil
     // Manejador de eliminación
     $('#tasksTable').on('click', '.deleteBtn', function () {
         var taskId = $(this).data('id');

@@ -84,6 +84,7 @@ try {
 <!DOCTYPE html>
 <html lang="es">
 
+//TODO: Agregar responsive design
 <head>
     <meta charset="UTF-8">
     <title>Editar Tarea</title>

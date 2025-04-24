@@ -25,6 +25,7 @@ $hasTasks = count($tasks) > 0;
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lista de Tareas</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Incluimos jQuery desde el CDN -->
@@ -39,11 +40,11 @@ $hasTasks = count($tasks) > 0;
 
 <body>
     <!-- Lista de tareas -->
-    <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
-        <h1 class="text-2xl font-bold p-4 border-b">Lista de Tareas</h1>
+    <div class="sm:w-full lg:max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+        <h1 class="text-2xl lg:text-3xl text-center font-bold p-4 border-b">Lista de Tareas</h1>
 
         <!-- Formulario de alta de tarea -->
-        <form id="addTaskForm" class="p-4 flex space-x-2">
+        <form id="addTaskForm" class="p-4 flex flex-col lg:flex-row lg:space-x-2 text-sm lg:text-lg">
             <input
                 type="text"
                 name="task_name"
@@ -54,11 +55,11 @@ $hasTasks = count($tasks) > 0;
                 required>
             <input
                 type="date" name="due_date" id="due_date"
-                class="border rounded px-3 py-2"
+                class="border rounded lg:px-3 mt-2 lg:mt-0 px-3 py-2"
                 required>
             <select
                 name="task_type_id" id="task_type"
-                class="border rounded px-3 py-2">
+                class="border rounded lg:px-3 mt-2 lg:mt-0 px-3 py-2">
                 <?php
                 // Cargar opciones de tipo de tarea desde la tabla task_types
                 $types = $pdo->query("SELECT id, type_name FROM task_types ORDER BY id ASC")->fetchAll();
@@ -70,7 +71,7 @@ $hasTasks = count($tasks) > 0;
             <button
                 type="submit"
                 id="addTaskBtn"
-                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+                class="bg-blue-500 text-white mt-2 lg:mt-0 px-4 px-3 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
                 disabled>
                 Añadir
             </button>
@@ -88,9 +89,9 @@ $hasTasks = count($tasks) > 0;
         </div>
         <div
             id="tasksContainer"
-            class="max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden <?= $hasTasks ? '' : 'hidden' ?>">
+            class="md:w-full lg:max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden <?= $hasTasks ? '' : 'hidden' ?>">
             <!-- Tabla de tareas hay tareas -->
-            <table id="tasksTable" class="table-auto min-w-full divide-y divide-gray-200">
+            <table id="tasksTable" class="table-auto min-w-full divide-y divide-gray-200 hidden md:table">
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Tarea</th>
@@ -116,12 +117,12 @@ $hasTasks = count($tasks) > 0;
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                         </svg>
-                                        <?php else: ?>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                                    </svg>
-                                <?php endif; ?>
-                            </div>
+                                    <?php else: ?>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                                        </svg>
+                                    <?php endif; ?>
+                                </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap space-x-2">
                                 <a
@@ -139,6 +140,58 @@ $hasTasks = count($tasks) > 0;
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <!-- Listado para móviles  -->
+            <div id="tasksMobileList" class="space-y-4 md:hidden">
+                <?php foreach ($tasks as $t): ?>
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <!-- Nombre de la tarea -->
+                        <div>
+                            <span class="block text-base font-medium text-gray-900">
+                                <?= ($t['task_name']) ?>
+                            </span>
+                        </div>
+                        <!-- Fecha límite -->
+                        <div class="mt-1">
+                            <span class="text-sm text-gray-500">
+                                <?= $t['due_date'] ?: '-' ?>
+                            </span>
+                        </div>
+                        <!-- Tipo y Estado en la misma línea -->
+                        <div class="mt-2 flex items-center space-x-1">
+                            <span class="text-sm text-gray-700 capitalize">
+                                <?= ($t['task_type']) ?>
+                            </span>
+                            <div class="flex flex-row">
+                                    <span class="text-sm font-medium pr-2 capitalize">- <?= $t['status'] ?></span>
+                                    <?php if ($t['status'] === 'completed'): ?>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                        </svg>
+                                    <?php else: ?>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                                        </svg>
+                                    <?php endif; ?>
+                                </div>
+                        </div>
+                        <!-- Acciones apiladas en su propia línea -->
+                        <div class="mt-3 flex space-x-4">
+                            <!-- Enlace a editar -->
+                            <a
+                                href="edit.php?id=<?= $t['id'] ?>"
+                                class="text-indigo-600 hover:text-indigo-900 text-sm">
+                                Editar
+                            </a>
+                            <!-- Botón de eliminar -->
+                            <button
+                                class="deleteBtn text-red-600 hover:text-red-900 text-sm"
+                                data-id="<?= $t['id'] ?>">
+                                Eliminar
+                            </button>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
         </div>
 </body>
 
