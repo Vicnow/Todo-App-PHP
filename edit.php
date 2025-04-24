@@ -99,7 +99,7 @@ try {
         <h1 class="text-2xl lg:text-3xl text-center font-bold pb-4 border-b">Editar Tarea</h1>
 
         <!-- Formulario de edición -->
-        <form action="edit.php?id=<?= $task['id'] ?>" method="POST"  class="p-4 flex flex-col lg:space-x-2 text-sm lg:text-lg">
+        <form action="edit.php?id=<?= $task['id'] ?>" method="POST" class="p-4 flex flex-col lg:space-x-2 text-sm lg:text-lg">
             <!-- Nombre de la tarea -->
             <div class="mb-4">
                 <label for="task_name" class="block text-sm font-medium text-gray-700">Descripción</label>
@@ -146,24 +146,24 @@ try {
             <div class="mb-4">
                 <span class="block text-sm font-medium text-gray-700">Estado</span>
                 <div class="mt-2 w-full flex justify-around">
-                <label class="inline-flex items-center mt-2">
-                    <input
-                        type="radio"
-                        name="status"
-                        value="pendiente"
-                        <?= $task['status'] === 'pendiente' ? 'checked' : '' ?>
-                        class="form-radio">
-                    <span class="ml-2">Pendiente</span>
-                </label>
-                <label class="inline-flex items-center mt-2 ml-6">
-                    <input
-                        type="radio"
-                        name="status"
-                        value="completada"
-                        <?= $task['status'] === 'completada' ? 'checked' : '' ?>
-                        class="form-radio">
-                    <span class="ml-2">Completada</span>
-                </label>
+                    <label class="inline-flex items-center mt-2">
+                        <input
+                            type="radio"
+                            name="status"
+                            value="pendiente"
+                            <?= $task['status'] === 'pendiente' ? 'checked' : '' ?>
+                            class="form-radio">
+                        <span class="ml-2">Pendiente</span>
+                    </label>
+                    <label class="inline-flex items-center mt-2 ml-6">
+                        <input
+                            type="radio"
+                            name="status"
+                            value="completada"
+                            <?= $task['status'] === 'completada' ? 'checked' : '' ?>
+                            class="form-radio">
+                        <span class="ml-2">Completada</span>
+                    </label>
                 </div>
             </div>
 

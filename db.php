@@ -13,10 +13,9 @@ $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
 try {
     // Creamos la instancia de PDO
     $pdo = new PDO($dsn, $user, $password);
-    
+
     // Excepciones en caso de error
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
 } catch (PDOException $e) {
     // Error en conexión
     die("Error de conexión a la base de datos: " . $e->getMessage());

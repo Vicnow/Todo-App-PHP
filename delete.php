@@ -26,7 +26,6 @@ try {
     // Redirigir de vuelta a la lista de tareas
     header('Location: index.php');
     exit;
-
 } catch (PDOException $e) {
     // Error de base de datos
     die('Error al eliminar la tarea: ' . $e->getMessage());

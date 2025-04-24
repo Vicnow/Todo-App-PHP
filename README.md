@@ -38,21 +38,23 @@ Aplicación web para gestionar una lista de tareas con operaciones CRUD.
 ## Instalación y configuración
 
 1. **Clonar el repositorio**
-    https://github.com/Vicnow/Todo-App-PHP
+   https://github.com/Vicnow/Todo-App-PHP
 
 2. **Crear la base de datos y tablas**
 
 3. **Configurar conexión**
-    `db.php`:
-     ```php
-     $host     = '127.0.0.1';
-     $port     = '3306';
-     $dbname   = 'todo_app';
-     $user     = 'root';
-     $password = 'root';
-     ```
+   `db.php`:
+
+   ```php
+   $host     = '127.0.0.1';
+   $port     = '3306';
+   $dbname   = 'todo_app';
+   $user     = 'root';
+   $password = 'root';
+   ```
 
 4. **Instalar dependencias de front-end**
+
    - Se usan CDN para Tailwind y jQuery.
 
 5. **Iniciar servidor**
