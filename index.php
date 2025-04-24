@@ -17,6 +17,8 @@ $sql = "
 ";
 $stmt = $pdo->query($sql);
 $tasks = $stmt->fetchAll();
+// Verificamos si hay tareas
+$hasTasks = count($tasks) > 0;
 ?>
 <!DOCTYPE html>
 <html lang="es">
