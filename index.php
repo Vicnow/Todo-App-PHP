@@ -64,7 +64,7 @@ $hasTasks = count($tasks) > 0;
                 required>
             <select
                 name="task_type_id" id="task_type"
-                class="border rounded lg:px-3 mt-2 lg:mt-0 px-3 py-2">
+                class="border rounded lg:px-3 mt-2 lg:mt-0 px-3 py-2 capitalize">
                 <?php
                 // Cargar opciones de tipo de tarea desde la tabla task_types
                 $types = $pdo->query("SELECT id, type_name FROM task_types ORDER BY id ASC")->fetchAll();
@@ -118,7 +118,7 @@ $hasTasks = count($tasks) > 0;
                             <td class="px-6 py-4 whitespace-nowrap capitalize">
                                 <div class="flex flex-row">
                                     <span class="text-sm font-medium pr-2"><?= $t['status'] ?></span>
-                                    <?php if ($t['status'] === 'completed'): ?>
+                                    <?php if ($t['status'] === 'completada'): ?>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-500">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                         </svg>
@@ -168,7 +168,7 @@ $hasTasks = count($tasks) > 0;
                             </span>
                             <div class="flex flex-row">
                                 <span class="text-sm font-medium pr-2 capitalize">- <?= $t['status'] ?></span>
-                                <?php if ($t['status'] === 'completed'): ?>
+                                <?php if ($t['status'] === 'completada'): ?>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-500">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
@@ -200,7 +200,7 @@ $hasTasks = count($tasks) > 0;
         </div>
         <div class="flex flex-col text-center sm:flex-row sm:text-left justify-center mt-4">
             <span>App realizada por Víctor Hugo Morales Martínez para&nbsp;</span>
-            <a href="https://terraenergy.mx/" class="text-green-500" target="_blank">Terra Energy</a>
+            <a href="https://terraenergy.mx/" class="text-green-500" target="_blank">Terra Energy MX</a>
         </div>
         <div class="flex justify-center mb-4">
             <span>Repositorio del codigo aquí:&nbsp;</span>

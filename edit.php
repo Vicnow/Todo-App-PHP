@@ -13,7 +13,7 @@ try {
         $name      = trim($_POST['task_name']);
         $dueDate   = $_POST['due_date'];
         $typeId    = (int) $_POST['task_type_id'];
-        $status    = $_POST['status'] === 'completed' ? 'completed' : 'pending';
+        $status    = $_POST['status'] === 'completada' ? 'completada' : 'pendiente';
 
         // Validar datos del formulario
         if ($name === '' || strlen($name) > 50) {
@@ -101,7 +101,7 @@ try {
         <!-- Formulario de edición -->
         <form action="edit.php?id=<?= $task['id'] ?>" method="POST"  class="p-4 flex flex-col lg:space-x-2 text-sm lg:text-lg">
             <!-- Nombre de la tarea -->
-            <div class="mb-4 lg:mb-0 lg:flex-1">
+            <div class="mb-4">
                 <label for="task_name" class="block text-sm font-medium text-gray-700">Descripción</label>
                 <input
                     type="text"
@@ -113,7 +113,7 @@ try {
                     class="w-full flex-1 border rounded px-3 py-2">
             </div>
             <!-- Fecha límite -->
-            <div class="mb-4 lg:mb-0 lg:flex-1">
+            <div class="mb-4">
                 <label for="due_date" class="block text-sm font-medium text-gray-700">Fecha límite</label>
                 <input
                     type="date"
@@ -125,13 +125,13 @@ try {
             </div>
 
             <!-- Tipo de tarea -->
-            <div class="mb-4 lg:mb-0 lg:flex-1">
+            <div class="mb-4">
                 <label for="task_type_id" class="block text-sm font-medium text-gray-700">Tipo</label>
                 <select
                     name="task_type_id"
                     id="task_type_id"
                     required
-                    class="mt-1 block w-full border rounded px-3 py-2">
+                    class="mt-1 block w-full border rounded px-3 py-2 capitalize">
                     <?php foreach ($types as $type): ?>
                         <option
                             value="<?= $type['id'] ?>"
@@ -143,15 +143,15 @@ try {
             </div>
 
             <!-- Estado de la tarea -->
-            <div class="mb-4 lg:mb-0 lg:flex-1">
+            <div class="mb-4">
                 <span class="block text-sm font-medium text-gray-700">Estado</span>
                 <div class="mt-2 w-full flex justify-around">
                 <label class="inline-flex items-center mt-2">
                     <input
                         type="radio"
                         name="status"
-                        value="pending"
-                        <?= $task['status'] === 'pending' ? 'checked' : '' ?>
+                        value="pendiente"
+                        <?= $task['status'] === 'pendiente' ? 'checked' : '' ?>
                         class="form-radio">
                     <span class="ml-2">Pendiente</span>
                 </label>
@@ -159,8 +159,8 @@ try {
                     <input
                         type="radio"
                         name="status"
-                        value="completed"
-                        <?= $task['status'] === 'completed' ? 'checked' : '' ?>
+                        value="completada"
+                        <?= $task['status'] === 'completada' ? 'checked' : '' ?>
                         class="form-radio">
                     <span class="ml-2">Completada</span>
                 </label>
