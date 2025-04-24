@@ -26,6 +26,8 @@ $hasTasks = count($tasks) > 0;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="img/logo.ico" />
+    <link rel="shortcut icon" href="img/logo.ico" />
     <title>Lista de Tareas</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Incluimos jQuery desde el CDN -->
@@ -40,8 +42,11 @@ $hasTasks = count($tasks) > 0;
 
 <body>
     <!-- Lista de tareas -->
-    <div class="sm:w-full lg:max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
-        <h1 class="text-2xl lg:text-3xl text-center font-bold p-4 border-b">Lista de Tareas</h1>
+    <div class="sm:w-full lg:max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden my-4">
+        <div class="w-full flex justify-center">
+            <img class="h-24 object-cover" src="assets/img/logo.png" alt="Logo Terraenergy"></img>
+        </div>
+        <h1 class="text-2xl lg:text-3xl text-center font-bold pb-4 border-b">Lista de Tareas</h1>
 
         <!-- Formulario de alta de tarea -->
         <form id="addTaskForm" class="p-4 flex flex-col lg:flex-row lg:space-x-2 text-sm lg:text-lg">
@@ -71,7 +76,7 @@ $hasTasks = count($tasks) > 0;
             <button
                 type="submit"
                 id="addTaskBtn"
-                class="bg-blue-500 text-white mt-2 lg:mt-0 px-4 px-3 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+                class="bg-green-500 text-white mt-2 lg:mt-0 px-4 px-3 py-2 rounded hover:bg-green-600 disabled:opacity-50"
                 disabled>
                 Añadir
             </button>
@@ -114,11 +119,11 @@ $hasTasks = count($tasks) > 0;
                                 <div class="flex flex-row">
                                     <span class="text-sm font-medium pr-2"><?= $t['status'] ?></span>
                                     <?php if ($t['status'] === 'completed'): ?>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-500">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                         </svg>
                                     <?php else: ?>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-red-500">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
                                         </svg>
                                     <?php endif; ?>
@@ -162,17 +167,17 @@ $hasTasks = count($tasks) > 0;
                                 <?= ($t['task_type']) ?>
                             </span>
                             <div class="flex flex-row">
-                                    <span class="text-sm font-medium pr-2 capitalize">- <?= $t['status'] ?></span>
-                                    <?php if ($t['status'] === 'completed'): ?>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                        </svg>
-                                    <?php else: ?>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
-                                        </svg>
-                                    <?php endif; ?>
-                                </div>
+                                <span class="text-sm font-medium pr-2 capitalize">- <?= $t['status'] ?></span>
+                                <?php if ($t['status'] === 'completed'): ?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    </svg>
+                                <?php else: ?>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-red-300">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+                                    </svg>
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <!-- Acciones apiladas en su propia línea -->
                         <div class="mt-3 flex space-x-4">
@@ -192,6 +197,14 @@ $hasTasks = count($tasks) > 0;
                     </div>
                 <?php endforeach; ?>
             </div>
+        </div>
+        <div class="flex flex-col text-center sm:flex-row sm:text-left justify-center mt-4">
+            <span>App realizada por Víctor Hugo Morales Martínez para&nbsp;</span>
+            <a href="https://terraenergy.mx/" class="text-green-500" target="_blank">Terra Energy</a>
+        </div>
+        <div class="flex justify-center mb-4">
+            <span>Repositorio del codigo aquí:&nbsp;</span>
+            <a href="https://github.com/Vicnow/Todo-App-PHP" class="text-blue-500" target="_blank"> Link</a>
         </div>
 </body>
 

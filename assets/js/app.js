@@ -6,11 +6,11 @@ $(document).ready(function () {
     var $addButton = $('#addTaskBtn');
 
     // Iconos
-    var $iconComplete = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
+    var $iconComplete = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-green-500">' +
         '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' +
         '</svg>';
 
-    var $iconIncomplete = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
+    var $iconIncomplete = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-red-500">' +
         '<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />' +
         '</svg>';
 
@@ -40,7 +40,7 @@ $(document).ready(function () {
     // Inicializar estado del botón al cargar la página
     updateAddButton();
 
-    // Manejador de envío igual
+    // Manejador de envío
     $('#addTaskForm').on('submit', function (e) {
         e.preventDefault();
         $.ajax({
@@ -78,8 +78,8 @@ $(document).ready(function () {
                         '</div>' +
                         '</td>' +
                         '<td class="px-6 py-4 whitespace-nowrap space-x-2">' +
-                        '<a href="edit.php?id=' + t.id + '" class="text-indigo-600 hover:text-indigo-900 text-sm">Editar</a>' +
-                        '<button class="deleteBtn text-red-600 hover:text-red-900 text-sm" data-id="' + t.id + '">Eliminar</button>' +
+                        '<a href="edit.php?id=' + t.id + '" class="text-indigo-600 hover:text-indigo-900">Editar</a>' +
+                        '<button class="deleteBtn text-red-600 hover:text-red-900" data-id="' + t.id + '">Eliminar</button>' +
                         '</td>' +
                         '</tr>';
 
@@ -116,6 +116,9 @@ $(document).ready(function () {
 
                     // Limpiar formulario y resetear botón
                     $('#addTaskForm')[0].reset();
+                    // Se habilita la sección de tareas y se ocualta el mensaje de no tareas
+                    $('#tasksContainer').removeClass('hidden');
+                    $('#noTasksMessage').addClass('hidden');
                     updateAddButton();
                 } else {
                     alert('Error al agregar tarea: ' + response.message);
@@ -127,12 +130,17 @@ $(document).ready(function () {
         });
     });
 
-    // TODO: No mostrar confirmación de eliminación si se hace desde una tarjeta móvil
     // Manejador de eliminación
     $('#tasksTable').on('click', '.deleteBtn', function () {
         var taskId = $(this).data('id');
         if (confirm('¿Estás seguro de que deseas eliminar esta tarea?')) {
             window.location.href = 'delete.php?id=' + taskId;
         }
+    });
+
+    // Manejador de eliminación móvil
+    $('#tasksMobileList').on('click', '.deleteBtn', function () {
+        var taskId = $(this).data('id');
+        window.location.href = 'delete.php?id=' + taskId;
     });
 });

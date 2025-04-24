@@ -84,7 +84,6 @@ try {
 <!DOCTYPE html>
 <html lang="es">
 
-//TODO: Agregar responsive design
 <head>
     <meta charset="UTF-8">
     <title>Editar Tarea</title>
@@ -92,15 +91,17 @@ try {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 p-6">
-    <div class="max-w-md mx-auto bg-white shadow-md rounded-lg p-6">
-        <h1 class="text-2xl font-bold mb-4">Editar Tarea</h1>
+<body>
+    <div class="sm:w-full lg:max-w-3xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="w-full flex justify-center">
+            <img class="h-24 object-cover" src="assets/img/logo.png" alt="Logo Terraenergy"></img>
+        </div>
+        <h1 class="text-2xl lg:text-3xl text-center font-bold pb-4 border-b">Editar Tarea</h1>
 
         <!-- Formulario de edición -->
-        <form action="edit.php?id=<?= $task['id'] ?>" method="POST" class="space-y-4">
-
+        <form action="edit.php?id=<?= $task['id'] ?>" method="POST"  class="p-4 flex flex-col lg:space-x-2 text-sm lg:text-lg">
             <!-- Nombre de la tarea -->
-            <div>
+            <div class="mb-4 lg:mb-0 lg:flex-1">
                 <label for="task_name" class="block text-sm font-medium text-gray-700">Descripción</label>
                 <input
                     type="text"
@@ -109,11 +110,10 @@ try {
                     value="<?= htmlspecialchars($task['task_name']) ?>"
                     maxlength="50"
                     required
-                    class="mt-1 block w-full border rounded px-3 py-2">
+                    class="w-full flex-1 border rounded px-3 py-2">
             </div>
-
             <!-- Fecha límite -->
-            <div>
+            <div class="mb-4 lg:mb-0 lg:flex-1">
                 <label for="due_date" class="block text-sm font-medium text-gray-700">Fecha límite</label>
                 <input
                     type="date"
@@ -125,7 +125,7 @@ try {
             </div>
 
             <!-- Tipo de tarea -->
-            <div>
+            <div class="mb-4 lg:mb-0 lg:flex-1">
                 <label for="task_type_id" class="block text-sm font-medium text-gray-700">Tipo</label>
                 <select
                     name="task_type_id"
@@ -143,7 +143,7 @@ try {
             </div>
 
             <!-- Estado de la tarea -->
-            <div>
+            <div class="mb-4 lg:mb-0 lg:flex-1">
                 <span class="block text-sm font-medium text-gray-700">Estado</span>
                 <div class="mt-2 w-full flex justify-around">
                 <label class="inline-flex items-center mt-2">
@@ -168,17 +168,17 @@ try {
             </div>
 
             <!-- Botones -->
-            <div class="flex justify-between">
-                <button
-                    type="submit"
-                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-                    Guardar cambios
-                </button>
+            <div class="flex justify-between mt-4">
                 <a
                     href="index.php"
                     class="deleteBtn text-red-600 hover:text-red-900">
                     Cancelar
                 </a>
+                <button
+                    type="submit"
+                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                    Guardar cambios
+                </button>
             </div>
         </form>
     </div>
