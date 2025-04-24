@@ -1,10 +1,8 @@
 <?php
-header('Content-Type: application/json; charset=utf-8');
+// Incluir la conexión PDO
+require 'db.php';
 
 try {
-    // Incluir la configuración de conexión PDO
-    require 'db.php';
-
     // Validación de la solicitud
     if (empty($_POST['task_name']) || empty($_POST['task_type_id'])) {
         throw new Exception('Faltan datos obligatorios (nombre o tipo de tarea).');
