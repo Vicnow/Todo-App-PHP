@@ -64,7 +64,7 @@ $hasTasks = count($tasks) > 0;
                 required>
             <select
                 name="task_type_id" id="task_type"
-                class="border rounded lg:px-3 mt-2 lg:mt-0 px-3 py-2">
+                class="border rounded lg:px-3 mt-2 lg:mt-0 px-3 py-2 capitalize">
                 <?php
                 // Cargar opciones de tipo de tarea desde la tabla task_types
                 $types = $pdo->query("SELECT id, type_name FROM task_types ORDER BY id ASC")->fetchAll();
@@ -200,7 +200,7 @@ $hasTasks = count($tasks) > 0;
         </div>
         <div class="flex flex-col text-center sm:flex-row sm:text-left justify-center mt-4">
             <span>App realizada por Víctor Hugo Morales Martínez para&nbsp;</span>
-            <a href="https://terraenergy.mx/" class="text-green-500" target="_blank">Terra Energy</a>
+            <a href="https://terraenergy.mx/" class="text-green-500" target="_blank">Terra Energy MX</a>
         </div>
         <div class="flex justify-center mb-4">
             <span>Repositorio del codigo aquí:&nbsp;</span>
