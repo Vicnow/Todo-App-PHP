@@ -46,7 +46,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status === 'success') {
                     var t = response.task;
-                    
+
                     // Si es la PRIMERA tarea, oculta el mensaje y muestra la tabla
                     if ($('#noTasksMessage').is(':visible')) {
                         $('#noTasksMessage').hide();
@@ -61,7 +61,19 @@ $(document).ready(function () {
                         '</div>' +
                         '</td>' +
                         '<td  class="px-6 py-4 whitespace-nowrap capitalize">' + t.task_type + '</td>' +
-                        '<td  class="px-6 py-4 whitespace-nowrap capitalize">' + t.status + '</td>' +
+                        '<td class="px-6 py-4 whitespace-nowrap capitalize">' +
+                        '<div class="flex flex-row">' +
+                        '<span class="text-sm font-medium pr-2">' + t.status + '</span>';
+                    if (t.status === 'completed') {
+                        row += '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
+                            '<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />' +
+                            '</svg>';
+                    } else {
+                        row += '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">' +
+                            '<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />' +
+                            '</svg>';
+                    }
+                    row += '</div>' +
                         '<td  class="px-6 py-4 whitespace-nowrap space-x-2">' +
                         '<a href="edit.php?id=' + t.id + '" class="text-indigo-600 hover:text-indigo-900">Editar</a> ' +
                         '<button  class="deleteBtn text-red-600 hover:text-red-900" data-id="' + t.id + '">Eliminar</button>' +
